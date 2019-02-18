@@ -18,6 +18,12 @@ public class ParticleList : MonoBehaviour {
 	public float gravity;
 	public Vector2 lerpAlpha;
 	public Vector2 LerpSize;
+	public bool useNoise;
+	public float noiseStrength;
+	public int noiseFrequency;
+
+	private int frequencyCurrent;
+
 
 	private Vector3 startScale;
 
@@ -27,6 +33,7 @@ public class ParticleList : MonoBehaviour {
 		selfSprite = this.GetComponent<SpriteRenderer>().color;
 		startScale = self.localScale;
 		spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<PartiMaker>();
+		frequencyCurrent = noiseFrequency;
 	}
 
 	// Update is called once per frame
@@ -47,18 +54,26 @@ public class ParticleList : MonoBehaviour {
 
 	private void FixedUpdate()
 	{
-		//update math
+		//increments
+		frequencyCurrent++;
 
+		//noise
+		if (frequencyCurrent >= 100 && useNoise)
+		{
+			velocity += new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f))*noiseStrength;
+			frequencyCurrent = noiseFrequency;
+		}
+
+		//base physics
 		Vector3 force = new Vector3(0.0f, 0.0f - gravity, 0.0f);
 		Vector3 acceleration = force / mass;
-
 		velocity += acceleration;
 		position += velocity;
 
+		//lerping over time
 		float interp = age / lifetime;
 		alpha = Mathf.Lerp(lerpAlpha.x, lerpAlpha.y, interp);
 		size = Mathf.Lerp(LerpSize.x, LerpSize.y, interp);
 	}
-
 
 }

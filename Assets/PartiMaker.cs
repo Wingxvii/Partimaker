@@ -13,31 +13,45 @@ public class PartiMaker : MonoBehaviour {
 	public bool parse = false;
 
 	//customizable attributes
-	public int maxParticles = 100;
-	public int rate = 10;
-	public float spawnTime = 2.0f;
-	public float gravity = 0.0f;
-	public float mass = 1.0f;
-	public Vector3 minRangePos = new Vector3(0.0f,0.0f,0.0f);
-	public Vector3 maxRangePos = new Vector3(0.0f, 0.0f, 0.0f);
-	public Vector2 rangeVel = new Vector2(0.1f,1.0f);
-	public Vector2 rangeLifetime = new Vector2(1.0f,10.0f);
-	public Vector2 lerpAlpha = new Vector2(1.0f,0.0f);
-	public Vector2 lerpSize = new Vector2(1.0f,0.0f);
-	public Vector2 minInitialVel = new Vector2(1.0f, -1.0f);
-	public Vector2 maxInitialVel = new Vector2(1.0f, -1.0f);
+
+	/*Spawning Attributes*/
+	public int maxParticles = 100;								//maximum amount of particles that can be present
+	public int rate = 10;										//number of particles that can spawn per second
+	public float spawnTime = 2.0f;								//the life of the particle spawner in one instance of particle spawning
+
+	/*Physics Attributes*/
+	public float gravity = 0.0f;								//the force of gravity on the particle
+	public float mass = 1.0f;									//virtual mass of the particle
+	public Vector3 minRangePos = new Vector3(0.0f,0.0f,0.0f);	//minimum spawn position (becomes an offset if particle has parent)
+	public Vector3 maxRangePos = new Vector3(0.0f, 0.0f, 0.0f); //maximum spawn position (becomes an offset if particle has parent)
+
+	/*Lerping Lifetime Attributes*/
+	public Vector2 rangeLifetime = new Vector2(1.0f, 10.0f);	//range of the lifetime of the particle
+	public Vector2 lerpAlpha = new Vector2(1.0f,0.0f);          //size of the alpha lerp from x to y within the lifetime
+	public Vector2 lerpSize = new Vector2(1.0f,0.0f);			//size of the size lerp from x to y within the lifetime
+
+	/*Innitial Values*/
+	public Vector2 rangeVel = new Vector2(0.1f, 1.0f);          //range of the magnitude of innitial velocity
+	public Vector2 minInitialVel = new Vector2(1.0f, -1.0f);	//minimum direction of the innitial velocity
+	public Vector2 maxInitialVel = new Vector2(1.0f, -1.0f);	//maximum direction of the innitial velocity
+
+	/*Noise Module*/
+	public bool noiseOn = false;								
+	public float noiseStrength = 0.0f;							//strength determines effect of noise
+	public int noiseFrequency = 0;                              //frequency determines rate of noise addition, up to maximum of 100
+	public bool smoothing = false;								//smoothing lerps to noise target
+
+	/*Parenting Module*/
+	public bool parentToPlayer = false;
 
 	//parsing data
 	public string fileName = "test.txt";
 
-	public float spawnerTime = 0.0f;
+	//privates
+	private float spawnerTime = 0.0f;
 	public int currParticles;
-	public bool playing = false;
+	private bool playing = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -64,6 +78,9 @@ public class PartiMaker : MonoBehaviour {
 			currlist.gravity = gravity;
 			currlist.lerpAlpha = lerpAlpha;
 			currlist.LerpSize = lerpSize;
+			currlist.noiseStrength = noiseStrength;
+			currlist.noiseFrequency = noiseFrequency;
+			currlist.useNoise = noiseOn;
 
 			currParticles++;
 			NumToSpawn--;
@@ -113,6 +130,11 @@ public class PartiMaker : MonoBehaviour {
 		parser.WriteLine(output);
 		output = string.Format("k{0},{1}/{2},{3}", minInitialVel.x, maxInitialVel.x, minInitialVel.y,maxInitialVel.y);
 		parser.WriteLine(output);
+		if (noiseOn)
+		{
+			output = string.Format("l{0},{1}", noiseStrength, noiseFrequency);
+			parser.WriteLine(output);
+		}
 
 
 		parser.Close();
