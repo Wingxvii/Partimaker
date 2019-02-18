@@ -40,9 +40,6 @@ public class PartiMaker : MonoBehaviour {
 	public float noiseStrength = 0.0f;							//strength determines effect of noise
 	public int noiseFrequency = 0;                              //frequency determines rate of noise addition, up to maximum of 100
 
-	/*Parenting Module*/
-	public bool parentToPlayer = false;							//sets origin to player's location
-
 	//parsing data
 	public string fileName = "test.txt";						//output file string (must have .txt)
 
@@ -102,11 +99,6 @@ public class PartiMaker : MonoBehaviour {
 	//used to parse
 	private void OnParse()
 	{
-		int parent = 0;
-		if (parentToPlayer) {
-			parent = 1;
-		}
-
 		string output;
 		string docPath = Application.dataPath;
 
@@ -139,8 +131,7 @@ public class PartiMaker : MonoBehaviour {
 			output = string.Format("l{0},{1}", noiseStrength, noiseFrequency);
 			parser.WriteLine(output);
 		}
-		output = string.Format("m{0}", parent);
-		parser.WriteLine(output);
+
 
 		parser.Close();
 	}

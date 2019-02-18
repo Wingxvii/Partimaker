@@ -150,15 +150,15 @@ MonoBehaviour:
   mass: 2
   minRangePos: {x: 12, y: 20, z: -15}
   maxRangePos: {x: 12, y: 20, z: -15}
-  rangeVel: {x: -5, y: 5}
   rangeLifetime: {x: 2, y: 3}
   lerpAlpha: {x: 0.4, y: 0.8}
   lerpSize: {x: 1, y: 2}
+  rangeVel: {x: -5, y: 5}
   minInitialVel: {x: 1, y: 1}
   maxInitialVel: {x: -1, y: -1}
-  noiseStrength: 1
-  noiseFrequency: 80
   noiseOn: 1
+  noiseStrength: 1
+  noiseFrequency: 20
   fileName: text.txt
   currParticles: 0
 --- !u!4 &144411786
@@ -285,15 +285,15 @@ MonoBehaviour:
   mass: 0
   minRangePos: {x: 0, y: 0, z: 0}
   maxRangePos: {x: 0, y: 0, z: 0}
-  rangeVel: {x: 0, y: 0}
   rangeLifetime: {x: 0, y: 0}
   lerpAlpha: {x: 0, y: 0}
   lerpSize: {x: 0, y: 0}
+  rangeVel: {x: 0, y: 0}
   minInitialVel: {x: 0, y: 0}
   maxInitialVel: {x: 0, y: 0}
+  noiseOn: 0
   noiseStrength: 0
   noiseFrequency: 0
-  noiseOn: 0
   fileName: 
   currParticles: 0
 --- !u!20 &282840813
