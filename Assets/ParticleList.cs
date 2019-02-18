@@ -21,10 +21,9 @@ public class ParticleList : MonoBehaviour {
 	public bool useNoise;
 	public float noiseStrength;
 	public int noiseFrequency;
+	public bool smoothing;
 
 	private int frequencyCurrent;
-
-
 	private Vector3 startScale;
 
 	private void Start()
@@ -60,7 +59,7 @@ public class ParticleList : MonoBehaviour {
 		//noise
 		if (frequencyCurrent >= 100 && useNoise)
 		{
-			velocity += new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f))*noiseStrength;
+			velocity += new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f)) * noiseStrength;
 			frequencyCurrent = noiseFrequency;
 		}
 

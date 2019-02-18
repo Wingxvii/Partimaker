@@ -36,16 +36,15 @@ public class PartiMaker : MonoBehaviour {
 	public Vector2 maxInitialVel = new Vector2(1.0f, -1.0f);	//maximum direction of the innitial velocity
 
 	/*Noise Module*/
-	public bool noiseOn = false;								
+	public bool noiseOn = false;								//use noise
 	public float noiseStrength = 0.0f;							//strength determines effect of noise
 	public int noiseFrequency = 0;                              //frequency determines rate of noise addition, up to maximum of 100
-	public bool smoothing = false;								//smoothing lerps to noise target
 
 	/*Parenting Module*/
-	public bool parentToPlayer = false;
+	public bool parentToPlayer = false;							//sets origin to player's location
 
 	//parsing data
-	public string fileName = "test.txt";
+	public string fileName = "test.txt";						//output file string (must have .txt)
 
 	//privates
 	private float spawnerTime = 0.0f;
@@ -103,6 +102,11 @@ public class PartiMaker : MonoBehaviour {
 	//used to parse
 	private void OnParse()
 	{
+		int parent = 0;
+		if (parentToPlayer) {
+			parent = 1;
+		}
+
 		string output;
 		string docPath = Application.dataPath;
 
@@ -135,7 +139,8 @@ public class PartiMaker : MonoBehaviour {
 			output = string.Format("l{0},{1}", noiseStrength, noiseFrequency);
 			parser.WriteLine(output);
 		}
-
+		output = string.Format("m{0}", parent);
+		parser.WriteLine(output);
 
 		parser.Close();
 	}
