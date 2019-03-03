@@ -17,13 +17,16 @@ public class PartiMaker : MonoBehaviour {
 	/*Spawning Attributes*/
 	public int maxParticles = 100;								//maximum amount of particles that can be present
 	public int rate = 10;										//number of particles that can spawn per second
-	public float spawnTime = 2.0f;								//the life of the particle spawner in one instance of particle spawning
+	public float spawnTime = 2.0f;                              //the life of the particle spawner in one instance of particle spawning
+	public bool ringSpawner = false;							//spawns in a ring
 
 	/*Physics Attributes*/
 	public float gravity = 0.0f;								//the force of gravity on the particle
 	public float mass = 1.0f;									//virtual mass of the particle
 	public Vector3 minRangePos = new Vector3(0.0f,0.0f,0.0f);	//minimum spawn position (becomes an offset if particle has parent)
 	public Vector3 maxRangePos = new Vector3(0.0f, 0.0f, 0.0f); //maximum spawn position (becomes an offset if particle has parent)
+	public float circleRadius = 1.0f;                           //range of the circle (radius)
+	public float ringRadius = 0.5f;								//inner radius of ring (bit that's cut off)
 
 	/*Lerping Lifetime Attributes*/
 	public Vector2 rangeLifetime = new Vector2(1.0f, 10.0f);	//range of the lifetime of the particle
@@ -65,6 +68,14 @@ public class PartiMaker : MonoBehaviour {
 			ParticleList currlist = currPart.GetComponent<ParticleList>();
 
 			currlist.position = new Vector3(Random.Range(minRangePos.x, maxRangePos.x), Random.Range(minRangePos.y, maxRangePos.y), Random.Range(minRangePos.z, maxRangePos.z));
+
+			//custom spawners:
+			if (ringSpawner) {
+				Vector3 offset = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
+				offset.Normalize();
+				currlist.position += offset * Random.Range(ringRadius, circleRadius);
+			}
+
 			currlist.velocity = new Vector3(Random.Range(minInitialVel.x, maxInitialVel.x), Random.Range(minInitialVel.y,maxInitialVel.y),0.0f) * Random.Range(rangeVel.x, rangeVel.y);
 			currlist.size = lerpSize.x;
 			currlist.alpha = lerpAlpha.x;
@@ -131,6 +142,12 @@ public class PartiMaker : MonoBehaviour {
 			output = string.Format("l{0},{1}", noiseStrength, noiseFrequency);
 			parser.WriteLine(output);
 		}
+		if (ringSpawner) {
+			output = string.Format("m{0},{1}", circleRadius, ringRadius);
+			parser.WriteLine(output);
+
+		}
+
 
 
 		parser.Close();

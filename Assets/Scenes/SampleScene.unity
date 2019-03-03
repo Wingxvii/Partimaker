@@ -146,19 +146,23 @@ MonoBehaviour:
   maxParticles: 5000
   rate: 10
   spawnTime: 3
-  gravity: 0.2
+  circleSpawner: 0
+  ringSpawner: 1
+  gravity: 0
   mass: 2
   minRangePos: {x: 12, y: 20, z: -15}
   maxRangePos: {x: 12, y: 20, z: -15}
+  circleRadius: 60
+  ringRadius: 50
   rangeLifetime: {x: 2, y: 3}
   lerpAlpha: {x: 0.4, y: 0.8}
   lerpSize: {x: 1, y: 2}
-  rangeVel: {x: -5, y: 5}
-  minInitialVel: {x: 1, y: 1}
-  maxInitialVel: {x: -1, y: -1}
+  rangeVel: {x: -0, y: 0}
+  minInitialVel: {x: 0, y: 0}
+  maxInitialVel: {x: -0, y: -0}
   noiseOn: 1
-  noiseStrength: 1
-  noiseFrequency: 20
+  noiseStrength: 0
+  noiseFrequency: 0
   fileName: text.txt
   currParticles: 0
 --- !u!4 &144411786
@@ -281,10 +285,14 @@ MonoBehaviour:
   maxParticles: 0
   rate: 0
   spawnTime: 2
+  circleSpawner: 0
+  ringSpawner: 0
   gravity: 0
   mass: 0
   minRangePos: {x: 0, y: 0, z: 0}
   maxRangePos: {x: 0, y: 0, z: 0}
+  circleRadius: 1
+  ringRadius: 0.5
   rangeLifetime: {x: 0, y: 0}
   lerpAlpha: {x: 0, y: 0}
   lerpSize: {x: 0, y: 0}
