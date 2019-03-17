@@ -57,10 +57,10 @@ public class ParticleList : MonoBehaviour {
 		frequencyCurrent++;
 
 		//noise
-		if (frequencyCurrent >= 100 && useNoise)
+		if (frequencyCurrent >= noiseFrequency && useNoise)
 		{
-			velocity += new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f)) * noiseStrength;
-			frequencyCurrent = noiseFrequency;
+			velocity += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0) * noiseStrength;
+			frequencyCurrent = 0;
 		}
 
 		//base physics

@@ -50,7 +50,6 @@ public class PartiMaker : MonoBehaviour {
 	private float spawnerTime = 0.0f;
 	public int currParticles;
 	private bool playing = false;
-
 	
 	// Update is called once per frame
 	void Update () {
